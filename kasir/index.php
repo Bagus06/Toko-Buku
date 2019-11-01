@@ -4,6 +4,9 @@ session_start();
 if ($_SESSION['userweb'] == "") {
   header('location:../index.php');
 }
+if ($_SESSION['level'] == "admin") {
+  header('location:../admin/index.php');
+}
 $qprofil = mysqli_query($koneksi, "SELECT * FROM tb_kasir WHERE id_kasir='$_SESSION[userweb]'");
 $profil = mysqli_fetch_array($qprofil);
 ?>
@@ -86,13 +89,6 @@ $profil = mysqli_fetch_array($qprofil);
         <?php
         error_reporting(0);
         switch ($_GET['menu']) {
-          case 'data_pegawai':
-            include "menu/data_pegawai.php";
-            break;
-
-          case 'tambah_pegawai':
-            include "menu/tambah_pegawai.php";
-            break;
 
           case 'data_penjualan':
             include "menu/data_penjualan.php";
@@ -102,24 +98,16 @@ $profil = mysqli_fetch_array($qprofil);
             include "menu/input_penjualan.php";
             break;
 
-          case 'data_distributor':
-            include "menu/data_distributor.php";
-            break;
-
-          case 'tambah_distributor':
-            include "menu/tambah_distributor.php";
-            break;
-
-          case 'data_pemasukan':
-            include "menu/data_pemasukan.php";
-            break;
-
           case 'profil':
             include "menu/profil.php";
             break;
 
           case 'edit_profil':
             include "menu/edit_profil.php";
+            break;
+
+          case 'jual':
+            include "menu/jual.php";
             break;
 
           default:

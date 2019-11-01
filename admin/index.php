@@ -4,6 +4,9 @@ include '../inc/connection.php';
 if ($_SESSION['userweb'] == "") {
   header('location:../index.php');
 }
+if ($_SESSION['level'] == "kasir") {
+  header('location:../kasir/index.php');
+}
 $qprofil = mysqli_query($koneksi, "SELECT * FROM tb_kasir WHERE id_kasir='$_SESSION[userweb]'");
 $profil = mysqli_fetch_array($qprofil);
 ?>
@@ -81,7 +84,7 @@ $profil = mysqli_fetch_array($qprofil);
               } ?>><a href="?menu=data_distributor">Distributor</a></li>
           <li <?php if ($menu == "input_pemasukan") {
                 echo "class='active'";
-              } ?>><a href="?menu=input_pemasukan">Pemasukan Buku</a></li>
+              } ?>><a href="?menu=data_pemasukan">Riwayat Pemasukan</a></li>
         </ul>
         <ul class="nav nav-sidebar">
           <li class="active"><a onclick="return confirm('Anda yakin akan keluar?')" href="../inc/keluar.php">
@@ -160,6 +163,12 @@ $profil = mysqli_fetch_array($qprofil);
           case 'input_pemasukan':
             $id = $_GET['id_buku'];
             include "menu/input_pemasukan.php";
+            break;
+
+          case 'hapus_pasok':
+            $id = $_GET['id_pasok'];
+            mysqli_query($koneksi, "DELETE FROM tb_pasok WHERE id_pasok='$id'");
+            include "menu/data_pasok.php";
             break;
 
           case 'profil':

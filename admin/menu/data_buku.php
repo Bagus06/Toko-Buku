@@ -18,6 +18,7 @@
             ?>
             <a class="btn btn-sm btn-success" href="?menu=tambah_buku">Tambah Data</a>
             <button class="btn btn-sm btn-defrault">Jumlah Data <span class="badge"><?= $jumlah ?></span></button>
+            <a class="btn btn-sm btn-primary" href="?menu=data_buku">refres / tampil all data</a>
         </div>
         <div class="col-md-4 col-md-offset-7">
             <form class="input-group" action="" method="post">
