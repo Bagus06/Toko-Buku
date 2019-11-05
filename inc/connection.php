@@ -1,5 +1,5 @@
 <?php
-$koneksi = mysqli_connect("localhost", "root", "", "toko_buku1");
+$koneksi = mysqli_connect("localhost", "envy.co", "password", "penjualan");
 // if ($koneksi) {
 //     print_r("Database Berhasil Terhubung.");
 // } else {
