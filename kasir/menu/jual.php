@@ -15,6 +15,8 @@
     $data = mysqli_fetch_array($qbuku);
     ?>
 </body>
+<h1>Penjualan</h1>
+<br>
 <div class="col-md-5">
     <form action="" class="form-horizontal" method="post">
         <label>Buku</label>
@@ -45,6 +47,24 @@
         mysqli_query($koneksi, "UPDATE tb_buku SET stok='$stokupdate' WHERE id_buku='$id'");
     }
     ?>
+</div>
+<div class="col-md-5">
+    <tr>
+        <td>Total Bayar : <h2><?= $total; ?></h2>
+        </td>
+    </tr>
+    <tr>
+        <td>UANG BAYAR : <h2><?= $uang; ?></h2>
+        </td>
+    </tr>
+    <tr>
+        <td>KEMBALIAN : <h2><?= $kembali; ?></h2>
+            <h2></h2>
+        </td>
+    </tr>
+
+    <a href="?menu=input_penjualan" class="btn btn-success">SELESAI</a>
+    <a class="btn btn-info" href=""><span class="glyphicon glyphicon-print"></span></a>
 </div>
 
 </html>

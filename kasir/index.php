@@ -110,6 +110,12 @@ $profil = mysqli_fetch_array($qprofil);
             include "menu/jual.php";
             break;
 
+          case 'hapus_penjualan':
+            $id = $_GET['id_penjualan'];
+            mysqli_query($koneksi, "DELETE FROM tb_penjualan WHERE id_penjualan='$id'");
+            include "menu/data_penjualan.php";
+            break;
+
           default:
             include "menu/dashboard.php";
             break;
