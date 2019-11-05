@@ -116,6 +116,29 @@ $profil = mysqli_fetch_array($qprofil);
             include "menu/data_penjualan.php";
             break;
 
+          case 'load_buku':
+            include "menu/load_buku.php";
+            break;
+
+          case 'hapus_ker':
+            $id_buku = $_GET['id_buku'];
+            $id_keranjang = $_GET['id_keranjang'];
+            $jumlah = $_GET['jumlah'];
+            $qbuku = mysqli_query($koneksi, "SELECT * FROM tb_buku WHERE id_buku='$id_buku'");
+            $buku = mysqli_fetch_array($qbuku);
+            $stokupdate = $buku['stok'] + $jumlah;
+            // var_dump($stokupdate);
+            // die;
+            mysqli_query($koneksi, "update tb_buku set stok='$stokupdate' where id_buku='$id_buku'");
+            mysqli_query($koneksi, "DELETE FROM tb_keranjang WHERE id_keranjang='$id_keranjang'");
+            include "menu/input_penjualan.php";
+            break;
+
+          case 'selesai':
+            mysqli_query($koneksi, "TRUNCATE TABLE tb_keranjang");
+            include "menu/input_penjualan.php";
+            break;
+
           default:
             include "menu/dashboard.php";
             break;

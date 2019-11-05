@@ -13,7 +13,7 @@
         <div class="col-md-8">
             <h3>Data Penjualan</h3>
             <?php
-            $qjumlah = mysqli_query($koneksi, "SELECT * FROM tb_penjualan");
+            $qjumlah = mysqli_query($koneksi, "SELECT * FROM tb_jual");
             $jumlah = mysqli_num_rows($qjumlah);
             ?>
             <button class="btn btn-sm btn-defrault">Jumlah Data <span class="badge"><?= $jumlah ?></span></button>
@@ -33,10 +33,10 @@
         <thead>
             <tr>
                 <th>No.</th>
-                <th>Buku</th>
-                <th>Jumlah</th>
+                <th>Kasir</th>
                 <th>Total</th>
-                <th>kasir</th>
+                <th>Uang Pembeli</th>
+                <th>Uang Kembali</th>
                 <th>Tanggal</th>
                 <th>Opsi</th>
             </tr>
@@ -47,14 +47,14 @@
             $inputan = $_POST['inputan'];
             if ($_POST['cari']) {
                 if ($inputan == "") {
-                    $q = mysqli_query($koneksi, "SELECT tb_penjualan.*, tb_kasir.*, tb_buku.* FROM `tb_penjualan` INNER JOIN tb_kasir ON tb_kasir.id_kasir=tb_penjualan.id_kasir INNER JOIN tb_buku ON tb_buku.id_buku=tb_penjualan.id_buku");
+                    $q = mysqli_query($koneksi, "SELECT tb_jual.*, tb_kasir.* FROM tb_jual INNER JOIN tb_kasir ON tb_kasir.id_kasir=tb_jual.id_kasir");
                 } else if ($inputan != "") {
                     // var_dump($inputan);
                     // die;
-                    $q = mysqli_query($koneksi, "SELECT tb_penjualan.*, tb_kasir.*, tb_buku.* FROM `tb_penjualan` INNER JOIN tb_kasir ON tb_kasir.id_kasir=tb_penjualan.id_kasir INNER JOIN tb_buku ON tb_buku.id_buku=tb_penjualan.id_buku WHERE judul LIKE '%$inputan%' OR nama LIKE '%$inputan%' OR tanggal LIKE '%$inputan%'");
+                    $q = mysqli_query($koneksi, "SELECT tb_jual.*, tb_kasir.* FROM tb_jual INNER JOIN tb_kasir ON tb_kasir.id_kasir=tb_jual.id_kasir WHERE judul LIKE '%$inputan%' OR nama LIKE '%$inputan%' OR tanggal LIKE '%$inputan%'");
                 }
             } else {
-                $q = mysqli_query($koneksi, "SELECT tb_penjualan.*, tb_kasir.*, tb_buku.* FROM `tb_penjualan` INNER JOIN tb_kasir ON tb_kasir.id_kasir=tb_penjualan.id_kasir INNER JOIN tb_buku ON tb_buku.id_buku=tb_penjualan.id_buku");
+                $q = mysqli_query($koneksi, "SELECT tb_jual.*, tb_kasir.* FROM tb_jual INNER JOIN tb_kasir ON tb_kasir.id_kasir=tb_jual.id_kasir");
             }
             $cek = mysqli_num_rows($q);
 
@@ -75,13 +75,13 @@
                         ?>
                     <tr>
                         <td><?= $no++ ?></td>
-                        <td><?= $data['judul']; ?></td>
-                        <td><?= $data['jumlah']; ?></td>
-                        <td>Rp. <?= $data['total']; ?></td>
                         <td><?= $data['nama']; ?></td>
+                        <td><?= $data['total']; ?></td>
+                        <td>Rp. <?= $data['uang']; ?></td>
+                        <td><?= $data['kembali']; ?></td>
                         <td><?= $data['tanggal']; ?></td>
                         <td>
-                            <a onclick="return confirm('Anda akan menghapusnya?')" href="?menu=hapus_penjualan&id_penjualan=<?php echo $data['id_penjualan']; ?>"><span class=" glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                            <a class="btn btn-success" href="?menu=detail&id_jual=<?php echo $data['id_jual']; ?>">detail</a>
                         </td>
                     </tr>
             <?php
