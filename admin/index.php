@@ -82,9 +82,12 @@ $profil = mysqli_fetch_array($qprofil);
           <li <?php if ($menu == "data_distributor" || $menu == "tambah_distributor" || $menu == "edit_distributor") {
                 echo "class='active'";
               } ?>><a href="?menu=data_distributor">Distributor</a></li>
-          <li <?php if ($menu == "input_pemasukan") {
+          <li <?php if ($menu == "data_pemasukan") {
                 echo "class='active'";
               } ?>><a href="?menu=data_pemasukan">Riwayat Pemasukan</a></li>
+          <li <?php if ($menu == "data_penjualan") {
+                echo "class='active'";
+              } ?>><a href="?menu=data_penjualan">Data / Laporan penjualan</a></li>
         </ul>
         <ul class="nav nav-sidebar">
           <li class="active"><a onclick="return confirm('Anda yakin akan keluar?')" href="../inc/keluar.php">
@@ -156,6 +159,16 @@ $profil = mysqli_fetch_array($qprofil);
             include "menu/edit_distributor.php";
             break;
 
+          case 'data_penjualan':
+            include "menu/data_penjualan.php";
+            break;
+
+          case 'hapus_penjualan':
+            $id = $_GET['id_penjualan'];
+            mysqli_query($koneksi, "DELETE FROM tb_penjualan WHERE id_penjualan='$id'");
+            include "menu/data_penjualan.php";
+            break;
+
           case 'data_pemasukan':
             include "menu/data_pemasukan.php";
             break;
@@ -168,7 +181,7 @@ $profil = mysqli_fetch_array($qprofil);
           case 'hapus_pasok':
             $id = $_GET['id_pasok'];
             mysqli_query($koneksi, "DELETE FROM tb_pasok WHERE id_pasok='$id'");
-            include "menu/data_pasok.php";
+            include "menu/data_pemasukan.php";
             break;
 
           case 'profil':
