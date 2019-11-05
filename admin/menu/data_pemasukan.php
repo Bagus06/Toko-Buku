@@ -11,7 +11,7 @@
 <body>
     <div class="row">
         <div class="col-md-8">
-            <h3>Data Pemasukan</h3>
+            <h3>Data Pegawai</h3>
             <?php
             $qjumlah = mysqli_query($koneksi, "SELECT * FROM tb_pasok");
             $jumlah = mysqli_num_rows($qjumlah);

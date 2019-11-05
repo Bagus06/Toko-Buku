@@ -49,24 +49,18 @@
         </thead>
         <tbody>
             <?php
-            // paging
-            $batas = 5;
-            $hal = ceil($jumlah / $batas);
-            $page = (isset($_GET['hal'])) ? $_GET['hal'] : 1;
-            $posisi = ($page - 1) * $batas;
-            // end paging
-            $no = 1 + $posisi;
+            $no = 1;
             $inputan = $_POST['inputan'];
             if ($_POST['cari']) {
                 if ($inputan == "") {
-                    $q = mysqli_query($koneksi, "SELECT * FROM tb_buku limit $posisi,$batas");
+                    $q = mysqli_query($koneksi, "SELECT * FROM tb_buku");
                 } else if ($inputan != "") {
                     // var_dump($inputan);
                     // die;
                     $q = mysqli_query($koneksi, "SELECT * FROM tb_buku WHERE judul LIKE '%$inputan%' OR noisbn LIKE '%$inputan%' OR penulis LIKE '%$inputan%' OR penerbit LIKE '%$inputan%' OR tahun LIKE '%$inputan%' OR stok LIKE '%$inputan%' OR harga_pokok LIKE '%$inputan%' OR harga_jual LIKE '%$inputan%' OR ppn LIKE '%$inputan%' OR diskon LIKE '%$inputan%'");
                 }
             } else {
-                $q = mysqli_query($koneksi, "SELECT * FROM tb_buku limit $posisi,$batas");
+                $q = mysqli_query($koneksi, "SELECT * FROM tb_buku");
             }
             $cek = mysqli_num_rows($q);
 
@@ -111,19 +105,6 @@
             ?>
         </tbody>
     </table>
-    <nav>
-        <ul class="pagination">
-            <?php
-            for ($i = 1; $i <= $hal; $i++) {
-                ?>
-                <li <?php if ($page == $i) {
-                            echo "class='active'";
-                        } ?>><a href="?menu=data_buku&hal=<?= $i; ?>"><?= $i; ?></a></li>
-            <?php
-            }
-            ?>
-        </ul>
-    </nav>
 </body>
 
 </html>
